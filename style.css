@@ -1,0 +1,563 @@
+:root {
+    /* --- YENİ ADAÇAYI PALETİ ENTEGRASYONU --- */
+    
+    /* 3. Renk (En Koyu/Doygun) -> Gölgeler ve vurgular */
+    --theme-dark: #849669; 
+    
+    /* 4. Renk (Orta Ton) -> Ana renk (Butonlar, başlıklar) */
+    --theme-main: #97A97C; 
+    
+    /* 5. Renk (Açık Ton) -> İkincil alanlar */
+    --theme-light: #A6B98B; 
+    
+    /* 6. Renk (En Soluk) -> Arka planlar */
+    --theme-pale: #B5C99A; 
+    
+    /* --- Nötr Renkler --- */
+    --cream: #fffef9;
+    --text-dark: #4A4C40;
+    --text-light: #6E7160;
+    --gold: #D4AF37;
+    
+    /* --- Efektler --- */
+    --shadow: 0 10px 30px rgba(132, 150, 105, 0.25);
+    --shadow-hover: 0 15px 40px rgba(132, 150, 105, 0.35);
+    --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+}
+
+/* --- GENEL STİLLER --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(135deg, var(--theme-pale) 0%, #ffffff 0%, #e3e4e0 100%);
+    color: var(--text-dark);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+#particles-js {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0; left: 0;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* --- GERİ SAYIM --- */
+.countdown-wrapper {
+    position: fixed;
+    top: 20px; right: 20px;
+    z-index: 1000;
+}
+
+.countdown-container {
+    background: rgba(155, 168, 85, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 15px 25px;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(139, 142, 121, 0.3);
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+.countdown-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.9rem;
+    color: var(--theme-main);
+    text-align: center;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+}
+
+.countdown-grid {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.time-box {
+    text-align: center;
+    min-width: 60px;
+}
+
+.time-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--theme-main);
+    line-height: 1;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.time-label {
+    font-size: 0.7rem;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 4px;
+}
+
+.separator {
+    font-size: 1.5rem;
+    color: var(--theme-light);
+    margin-bottom: 10px;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* --- ANA İÇERİK --- */
+.main-container {
+    padding-top: 100px;
+    padding-bottom: 80px;
+}
+
+.invitation-subtitle {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    letter-spacing: 4px;
+    color: var(--theme-dark);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.couple-names {
+    font-family: 'Dancing Script', cursive;
+    font-size: 4.5rem;
+    font-weight: 700;
+    color: var(--theme-main);
+    margin-bottom: 20px;
+    position: relative;
+    text-align: center;
+    text-shadow: 2px 2px 0px rgba(0,0,0,0.05);
+}
+
+.heart-icon {
+    color: rgba(249, 205, 222, 1);
+    margin: 0 15px;
+    font-size: 3rem;
+    vertical-align: middle;
+    animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+.invitation-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--text-light);
+    font-style: italic;
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* --- ZARF KONTEYNER & GÖRÜNÜM --- */
+.envelope-container {
+    position: relative;
+    margin: 40px auto;
+    max-width: 500px;
+    perspective: 1000px; /* 3D Efekt için */
+}
+
+.envelope-wrapper {
+    position: relative;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.envelope-wrapper:hover {
+    transform: translateY(-5px);
+}
+
+/* --- ZARF GÖVDESİ (ARTIRILMIŞ DOKU) --- */
+.envelope {
+    position: relative;
+    width: 100%;
+    height: 320px;
+    
+    /* ZEMİN RENGİ */
+    background-color: var(--theme-light);
+    
+    /* DOKU KATMANLARI */
+    background-image: 
+        /* 1. KATMAN: Güçlü Gürültü (Noise) - Pürüzlülük */
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.4'/%3E%3C/svg%3E"),
+        
+        /* 2. KATMAN: Kağıt Lifleri (İnce Çizgiler) */
+        repeating-linear-gradient(
+            45deg,
+            rgba(0,0,0,0.03) 0px,
+            rgba(0,0,0,0.03) 2px,
+            transparent 2px,
+            transparent 4px
+        ),
+        
+        /* 3. KATMAN: Derinlik Gölgesi */
+        radial-gradient(circle at center, transparent 70%, rgba(95, 60, 50, 0.2) 150%);
+    
+    border-radius: 4px;
+    
+    /* İç ve Dış Gölgeler */
+    box-shadow: 
+        inset 0 0 15px rgba(0,0,0,0.05), /* Kağıt kalınlığı hissi */
+        0 15px 35px rgba(0, 0, 0, 0.3);
+        
+    overflow: hidden;
+    transform-style: preserve-3d;
+    
+    /* Dokuyu daha net göstermek için kontrastı artırıyoruz */
+    filter: contrast(105%);
+}
+
+/* KANATLARIN ORTAK STİLİ (AYNI DOKU) */
+.flap {
+    position: absolute;
+    transition: var(--transition);
+    border: 1px solid rgba(0,0,0,0.08); /* Kenar çizgisi belirginleştirildi */
+    
+    /* Kanatlara da gövdedeki dokuyu uyguluyoruz */
+    background-image: 
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.35'/%3E%3C/svg%3E"),
+        repeating-linear-gradient(
+            45deg,
+            rgba(0,0,0,0.02) 0px,
+            rgba(0,0,0,0.02) 2px,
+            transparent 2px,
+            transparent 4px
+        );
+}
+
+/* Üst Kanat (Kapak) */
+.flap.top {
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    
+    background-color: var(--theme-main); 
+    
+    /* Kapak ışık aldığı için ekstra parlama ekliyoruz */
+    background-image: 
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.35'/%3E%3C/svg%3E"),
+        linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(0,0,0,0.05) 100%);
+        
+    border-radius: 4px 4px 0 0;
+    clip-path: polygon(0 0, 100% 0, 50% 50%);
+    transform-origin: top;
+    z-index: 5;
+    transition: transform 0.6s ease-in-out, z-index 0s 0.3s;
+}
+
+/* Sol Kanat */
+.flap.left {
+    left: 0; bottom: 0;
+    width: 54%;
+    height: 100%;
+    
+    background-color: var(--theme-main);
+    
+    /* Dokuyu korurken hafif gölge veriyoruz */
+    filter: brightness(0.98) contrast(105%);
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+    z-index: 3;
+}
+
+/* Sağ Kanat */
+.flap.right {
+    right: 0; bottom: 0;
+    width: 54%;
+    height: 100%;
+    
+    background-color: var(--theme-main);
+    
+    /* Sağ kanat solun altında kaldığı için biraz daha koyu */
+    filter: brightness(0.96) contrast(105%);
+    clip-path: polygon(100% 0, 0 50%, 100% 100%);
+    z-index: 4;
+}
+
+/* Alt Kanat */
+.flap.bottom {
+    bottom: 0; left: 0;
+    width: 100%; height: 100%;
+    
+    background-color: var(--theme-main);
+    
+    /* Alt kanat dokusu ve gölgesi */
+    background-image: 
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.35'/%3E%3C/svg%3E"),
+        radial-gradient(circle at top, transparent 40%, rgba(0,0,0,0.2) 100%);
+        
+    clip-path: polygon(0 100%, 100% 100%, 50% 50%);
+    z-index: 2;
+}
+
+/* --- MÜHÜR (SEDEF BEYAZ / KREM BALMUMU DOKUSU) --- */
+/* --- MÜHÜR (RESİMLİ - DÜZELTİLMİŞ) --- */
+.wax-seal-container {
+    position: absolute;
+    top: 55%; /* Üçgenin ucuna denk gelecek yer */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    transition: all 0.4s ease-in-out;
+    /* Mühürün kendisine doğal bir gölge verir */
+    filter: drop-shadow(0 5px 5px rgba(0,0,0,0.2));
+}
+
+.wax-seal {
+    width: 70px; 
+    height: 70px;
+    
+    /* RESİM AYARLARI */
+    /* Eğer şeffaf PNG'yi kullanıyorsan burayı .png yap */
+    background-image: url('assets/unnamed (1).jpg'); 
+    
+    /* ÖNEMLİ: 'contain' resmi kutunun içine tam sığdırır, kesilmesini önler. */
+    background-size: contain;
+    background-position: center; /* Ortala */
+    background-repeat: no-repeat;
+    
+    /* ŞEKİL: Kare kutuyu tam daire yapar. */
+    border-radius: 90%;
+    
+    /* SORUNU ÇÖZEN SATIR: Taşan kısımları (kareli alanları) gizler */
+    overflow: hidden;
+
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+
+}
+/* Yazı Stili - Dancing Script Fontu */
+.wax-seal span {
+    font-family: 'Dancing Script', cursive; /* İstenilen Font */
+    font-size: 1.6rem;   /* Boyut */
+    font-weight: 700;    /* Kalınlık */
+    
+    /* Renk: Mühürle uyumlu koyu altın/kahve */
+    color: #8B7E66; 
+    
+    /* Ortalamak için */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-5deg); /* Hafif eğik duruş */
+    
+    /* Kabartma (Emboss) Efekti: Yazı mühürün içine işlenmiş gibi durur */
+    text-shadow: 
+        1px 1px 0px rgba(255, 255, 255, 0.6), /* Altına ışık */
+        -1px -1px 1px rgba(0, 0, 0, 0.1);     /* Üstüne gölge */
+        
+    z-index: 20; /* Resmin üzerinde dursun */
+    pointer-events: none; /* Tıklamayı engellemesin */
+}
+
+
+
+/* --- DAVETİYE KARTI --- */
+.invitation-card {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: transparent; 
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+    transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.full-invitation-image {
+    width: 90%; height: auto;
+    max-height: 140%;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2); 
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+.instruction {
+    text-align: center;
+    margin-top: 20px;
+    color: var(--theme-main);
+    font-family: 'Cinzel', serif;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+}
+
+.instruction i {
+    margin-right: 8px;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+/* --- AÇIK ZARF ANİMASYONLARI --- */
+.envelope-wrapper.open .flap.top {
+    transform: rotateX(180deg);
+    z-index: 1; /* Arkaya geçer */
+    transition: transform 0.6s ease-in-out, z-index 0s 0.6s;
+}
+
+.envelope-wrapper.open .wax-seal-container {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+    pointer-events: none;
+}
+
+.envelope-wrapper.open .invitation-card {
+    opacity: 1;
+    transform: translateY(-200px) scale(1.1); /* Yukarı çıkar */
+    z-index: 10; /* En öne geçer */
+}
+
+/* --- FOOTER & DİĞERLERİ --- */
+.footer {
+    font-family: 'Playfair Display', serif;
+    text-align: center;
+    padding: 30px 20px;
+    margin-top: 50px;
+    background: linear-gradient(135deg, var(--theme-pale) 0%, transparent 100%);
+    border-top: 1px solid rgba(139, 142, 121, 0.2);
+}
+
+.footer-names {
+    font-family: 'Dancing Script', cursive;
+    font-size: 3rem;
+    color: var(--theme-main);
+    margin: 20px 0;
+}
+
+/* --- MOBİL UYUM --- */
+/* --- MOBİL UYUM (GÜNCELLENMİŞ: YEŞİL ALAN ARTIRILDI) --- */
+@media (max-width: 768px) {
+    
+    /* 1. ARKA PLAN AYARI: Yeşil alan artırıldı */
+    body {
+        /* - 0%: En üstten yeşil başlar.
+           - 65%: Ekranın %65'ine kadar (yarısından fazlası) yeşil tonu gelir, sonra beyaza döner.
+           (Daha da artırmak istersen 65'i 80 yapabilirsin)
+        */
+        background: linear-gradient(to bottom, var(--theme-pale) 0%, #ffffff 65%, #e3e0e4ff 100%);
+        min-height: 100vh; 
+        background-attachment: fixed; /* Arka plan sabit dursun, kaybolmasın */
+    }
+
+    /* 2. DİĞER MOBİL AYARLAR */
+    .countdown-wrapper {
+        position: relative;
+        top: 0; right: 0;
+        margin: 20px auto;
+        width: 90%;
+    }
+    
+    .countdown-grid { justify-content: center; }
+    
+    .couple-names { font-size: 3rem; }
+    
+    .main-container { padding-top: 40px; }
+    
+    .envelope { height: 260px; }
+    
+    .envelope-wrapper.open .invitation-card {
+        transform: translateY(-220px) scale(1);
+    }
+}
+
+@media (max-width: 576px) {
+    .couple-names { font-size: 2.8rem; }
+    .envelope { height: 240px; }
+    .envelope-wrapper.open .invitation-card {
+        transform: translateY(-180px) scale(1);
+    }
+}
+/* --- KOMPAKT KONUM STİLLERİ --- */
+.location-section {
+    margin-top: 30px; /* Üst boşluk azaltıldı */
+    margin-bottom: 20px;
+}
+
+.location-card-compact {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    overflow: hidden; /* Kenarları keser */
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(132, 150, 105, 0.15);
+}
+
+.map-container-small {
+    height: 200px; /* Sabit küçük yükseklik */
+    filter: grayscale(0.3);
+}
+
+.location-details-small {
+    padding: 20px;
+    text-align: center;
+}
+
+.compact-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    color: var(--theme-dark);
+    margin-bottom: 10px;
+}
+
+.compact-address {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+
+.btn-compact {
+    display: inline-block;
+    padding: 8px 20px;
+    background-color: var(--theme-main);
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.btn-compact:hover {
+    background-color: var(--theme-dark);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Mobil için dikeyde de küçük kalsın */
+@media (max-width: 768px) {
+    .map-container-small {
+        height: 150px;
+    }
+    .location-details-small {
+        padding: 15px;
+    }
+}
